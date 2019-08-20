@@ -20,7 +20,7 @@ module.exports = {
     "password": null,
     "database": "quantified_self_production",
     "host": "127.0.0.1",
-    "use_env_variable": "DATABASE_URL"
+    "use_env_variable": "DATABASE_URL",
     "dialect": "postgres",
     "operatorsAliases": false
   }
