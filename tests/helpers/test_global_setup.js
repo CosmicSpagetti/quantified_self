@@ -1,4 +1,4 @@
-var shell = require('shellljs');
+var shell = require('shelljs');
 
 module.exports = () => {
   shell.exec('npx sequelize db:create');

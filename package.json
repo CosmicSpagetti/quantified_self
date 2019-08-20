@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "jest --watch --coverage"
+    "test": "jest --coverage"
   },
   "jest": {
     "maxConcurrency": 1,
-    "globalSetup": "./tests/helpers/testGlobalSetup.js",
-    "globalTeardown": "./tests/helpers/testGlobalTeardown.js"
+    "globalSetup": "./tests/helpers/test_global_setup.js",
+    "globalTeardown": "./tests/helpers/test_global_teardown.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
     "shelljs": "^0.8.3",
     "supertest": "^4.0.2"
   }
