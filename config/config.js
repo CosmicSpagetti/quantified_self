@@ -2,7 +2,7 @@ module.exports = {
   "development": {
     "username": process.env.DB_USERNAME,
     "password": null,
-    "database": "quantified_self_development",
+    "database": process.env.DB_DATABASE,
     "host": "127.0.0.1",
     "dialect": "postgres",
     "operatorsAliases": false
