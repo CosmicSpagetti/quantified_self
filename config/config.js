@@ -1,14 +1,14 @@
-{
+module.exports = {
   "development": {
-    "username": "root",
+    "username": process.env.DB_USERNAME,
     "password": null,
-    "database": "quantified_self_development",
+    "database": process.env.DB_DATABASE,
     "host": "127.0.0.1",
     "dialect": "postgres",
     "operatorsAliases": false
   },
   "test": {
-    "username": "root",
+    "username": process.env.DB_USERNAME,
     "password": null,
     "database": "quantified_self_test",
     "host": "127.0.0.1",
@@ -16,7 +16,7 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "root",
+    "username": process.env.DB_USERNAME,
     "password": null,
     "database": "quantified_self_production",
     "host": "127.0.0.1",
