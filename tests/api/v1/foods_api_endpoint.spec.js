@@ -6,7 +6,7 @@ var Food = require('../../../models').Food;
 var app = require('../../../app');
 var cleanup = require('../../../tests/helpers/test_clear_database');
 
-describe('food index api', () => {
+describe('foods api endpoint', () => {
   beforeEach(() => {
     cleanup();
   })
