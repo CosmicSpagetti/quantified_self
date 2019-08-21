@@ -35,7 +35,7 @@ router.get('/:id', (request, response) => {
     response.status(200).send(JSON.stringify(food));
     } else {
       response.setHeader('Content-Type', 'application/json');
-      response.status(404).send(JSON.stringify({error: "Food not found."}));
+      response.status(404).send(JSON.stringify({error: 'Food not found.'}));
     }
   })
   .catch(error => {
@@ -78,12 +78,12 @@ router.post('/', (request, response) => {
     calories: request.body.calories
   })
   .then(food => {
-    response.setHeader("Content-Type", "application/json")
+    response.setHeader('Content-Type', 'application/json')
     response.status(201).send(JSON.stringify(food, ['id', 'name', 'calories'] ));
   })
   .catch(error => {
     console.log(error)
-    response.setHeader("Content-Type", "application/json")
+    response.setHeader('Content-Type', 'application/json')
     response.status(400).send(JSON.stringify({ error: 'Food not created.' }));
   })
 })
