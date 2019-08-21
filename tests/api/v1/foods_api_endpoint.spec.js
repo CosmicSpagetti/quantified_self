@@ -38,16 +38,55 @@ describe('foods api endpoint', () => {
         updatedAt: new Date()
       }
     ])
+    .then(foods => {
+      return request(app)
+      .get('/api/v1/foods')
+      .then(response => {
+        expect(response.statusCode).toBe(200)
 
+        expect(response.body.length).toBe(4)
+        expect(Object.keys(response.body[0])).toContain('id')
+        expect(Object.keys(response.body[0])).toContain('name')
+        expect(Object.keys(response.body[0])).toContain('calories')
+      })
+    })
+  })
+
+  test('user can update an existing food', () => {
+    return Food.create({
+      name: 'Blueberry',
+      calories: 5,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })
+    .then(food => {
+      return request(app)
+      .patch(`/api/v1/foods/${food.id}`)
+      .send({
+        name: 'Gooseberry',
+        calories: 10
+      })
+      .then(response => {
+        expect(response.status).toBe(202)
+        expect(Object.keys(response.body)).toContain('id')
+        expect(Object.keys(response.body)).toContain('name')
+        expect(Object.keys(response.body)).toContain('calories')
+
+        expect(Object.keys(response.body)).not.toContain('createdAt')
+        expect(Object.keys(response.body)).not.toContain('updatedAt')
+      })
+    })
+  })
+
+  test('user recieves a 404 error when no food is found to update', () => {
     return request(app)
-    .get('/api/v1/foods')
+    .patch(`/api/v1/foods/9999`)
+    .send({
+      name: 'Gooseberry',
+      calories: 10
+    })
     .then(response => {
-      expect(response.statusCode).toBe(200)
-
-      expect(response.body.length).toBe(4)
-      expect(Object.keys(response.body[0])).toContain('id')
-      expect(Object.keys(response.body[0])).toContain('name')
-      expect(Object.keys(response.body[0])).toContain('calories')
+      expect(response.status).toBe(404)
     })
   })
 })
