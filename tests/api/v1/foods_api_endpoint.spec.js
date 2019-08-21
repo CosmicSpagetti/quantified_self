@@ -81,7 +81,7 @@ describe('foods api endpoint', () => {
         expect(Object.values(response.body)).toContain(6)
         expect(Object.values(response.body)).toContain('Mango')
         expect(Object.values(response.body)).toContain(120)
-        
+
         expect(Object.keys(response.body)).not.toContain('createdAt')
         expect(Object.keys(response.body)).not.toContain('updatedAt')
       })
@@ -123,13 +123,38 @@ describe('foods api endpoint', () => {
     })
   })
 
-  test('user recieves a 404 error when no food is found to update', () => {
+  test('user receives a 404 error when no food is found to update', () => {
     return request(app)
     .patch('/api/v1/foods/9999')
     .send({
       name: 'Gooseberry',
       calories: 10
     })
+    .then(response => {
+      expect(response.status).toBe(404)
+      expect(response.body.error).toBe('Food not found.')
+    })
+  })
+
+  test('user can delete existing food', () => {
+    return Food.create({
+      name: 'Raspberry',
+      calories: 10,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })
+    .then(food => {
+      return request(app)
+      .delete(`/api/v1/foods/${food.id}`)
+    })
+    .then(response => {
+      expect(response.status).toBe(204)
+    })
+  })
+
+  test('user recieves a 404 error when no food is found to delete', () => {
+    return request(app)
+    .delete('/api/v1/foods/9999')
     .then(response => {
       expect(response.status).toBe(404)
       expect(response.body.error).toBe('Food not found.')
