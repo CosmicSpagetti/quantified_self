@@ -140,8 +140,8 @@ describe('foods api endpoint', () => {
     return request(app)
     .post('/api/v1/foods')
     .send({
-      "name": "hot dog",
-      "calories": 1000
+      name: 'hot dog',
+      calories: 1000
     })
     .then(response => {
       expect(response.status).toBe(201)
@@ -159,7 +159,7 @@ describe('foods api endpoint', () => {
     return request(app)
     .post('/api/v1/foods')
     .send({
-      "name": "hot dog"
+      name: 'hot dog'
     })
     .then(response => {
       expect(response.status).toBe(400)
