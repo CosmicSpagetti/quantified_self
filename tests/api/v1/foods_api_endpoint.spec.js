@@ -59,14 +59,14 @@ describe('foods api endpoint', () => {
     return Food.bulkCreate([
       {
         id: 6,
-        name: 'Mango',
+        name: 'Plantain',
         calories: 120,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         id: 8,
-        name: 'Orange',
+        name: 'Peach',
         calories: 80,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -79,7 +79,7 @@ describe('foods api endpoint', () => {
         expect(response.statusCode).toBe(200)
 
         expect(Object.values(response.body)).toContain(6)
-        expect(Object.values(response.body)).toContain('Mango')
+        expect(Object.values(response.body)).toContain('Plantain')
         expect(Object.values(response.body)).toContain(120)
         
         expect(Object.keys(response.body)).not.toContain('createdAt')
@@ -133,6 +133,38 @@ describe('foods api endpoint', () => {
     .then(response => {
       expect(response.status).toBe(404)
       expect(response.body.error).toBe('Food not found.')
+    })
+  })
+
+  test('user can create a new food', () => {
+    return request(app)
+    .post('/api/v1/foods')
+    .send({
+      "name": "hot dog",
+      "calories": 1000
+    })
+    .then(response => {
+      expect(response.status).toBe(201)
+
+      expect(Object.keys(response.body)).toContain('id')
+      expect(Object.keys(response.body)).toContain('name')
+      expect(Object.keys(response.body)).toContain('calories')
+
+      expect(Object.keys(response.body)).not.toContain('createdAt')
+      expect(Object.keys(response.body)).not.toContain('updatedAt')
+    })
+  })
+
+  test('user gets 404 when trying to create food without required fields', () => {
+    return request(app)
+    .post('/api/v1/foods')
+    .send({
+      "name": "hot dog"
+    })
+    .then(response => {
+      expect(response.status).toBe(400)
+      console.log(response.error)
+      expect(response.body.error).toBe('Food not created.')
     })
   })
 })
