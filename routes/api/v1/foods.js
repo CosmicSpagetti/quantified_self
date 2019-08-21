@@ -22,9 +22,9 @@ router.get('/', (request, response) => {
 
 router.get('/:id', (request, response) => {
   return Food.findOne({
-    attributes: { 
-      exclude: ['createdAt', 'updatedAt'] 
-    }, 
+    attributes: {
+      exclude: ['createdAt', 'updatedAt']
+    },
     where: {
       id: request.params.id
     }
@@ -87,4 +87,29 @@ router.post('/', (request, response) => {
     response.status(400).send(JSON.stringify({ error: 'Food not created.' }));
   })
 })
+
+router.delete('/:id', (request, response) => {
+  return Food.findOne({
+    where: {
+      id: request.params.id,
+    }
+  })
+  .then(food => {
+    if (food) {
+      return food.destroy()
+      .then(destroyedFood => {
+        response.setHeader('Content-Type', 'application/json');
+        response.status(204).send(JSON.stringify(destroyedFood))
+      })
+      .catch(error => {
+        response.setHeader('Content-Type', 'application/json');
+        response.status(500).send({ error });
+      })
+    } else {
+      response.setHeader('Content-Type', 'application/json');
+      response.status(404).send(JSON.stringify({ error: 'Food not found.' }));
+    }
+  })
+})
+
 module.exports = router;
