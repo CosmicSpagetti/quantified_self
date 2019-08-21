@@ -87,6 +87,7 @@ describe('foods api endpoint', () => {
     })
     .then(response => {
       expect(response.status).toBe(404)
+      expect(response.body.error).toBe('Food not found.')
     })
   })
 })
