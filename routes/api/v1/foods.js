@@ -58,11 +58,8 @@ router.patch('/:id', (request, response) => {
       })
       .then(updatedFood => {
         response.setHeader('Content-Type', 'application/json');
-        response.status(202).send(JSON.stringify({
-          id: updatedFood.id,
-          name: updatedFood.name,
-          calories: updatedFood.calories
-        }));
+        response.status(202).send(JSON.stringify(updatedFood, ['id', 'name', 'calories'] )
+        );
       })
       .catch(error => {
         response.setHeader('Content-Type', 'application/json');
@@ -75,4 +72,19 @@ router.patch('/:id', (request, response) => {
   })
 })
 
+router.post('/', (request, response) => {
+  return Food.create({
+    name: request.body.name,
+    calories: request.body.calories
+  })
+  .then(food => {
+    response.setHeader("Content-Type", "application/json")
+    response.status(201).send(JSON.stringify(food, ['id', 'name', 'calories'] ));
+  })
+  .catch(error => {
+    console.log(error)
+    response.setHeader("Content-Type", "application/json")
+    response.status(400).send(JSON.stringify({ error: 'Food not created.' }));
+  })
+})
 module.exports = router;
