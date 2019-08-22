@@ -7,9 +7,9 @@
     "test": "jest --coverage"
   },
   "jest": {
-    "maxConcurrency": 1,
     "globalSetup": "./tests/helpers/test_global_setup.js",
-    "globalTeardown": "./tests/helpers/test_global_teardown.js"
+    "globalTeardown": "./tests/helpers/test_global_teardown.js",
+    "maxWorkers": 1
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
