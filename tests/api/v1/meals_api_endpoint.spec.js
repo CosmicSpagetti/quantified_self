@@ -2,7 +2,6 @@ var shell = require('shelljs');
 var request = require('supertest');
 
 var Meal = require('../../../models').Meal;
-var Food = require('../../../models').Food;
 
 var app = require('../../../app');
 var cleanup = require('../../../tests/helpers/test_clear_database');
