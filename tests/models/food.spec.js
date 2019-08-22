@@ -5,8 +5,8 @@ var Food = require('../../models').Food;
 var Meal = require('../../models').Meal;
 
 describe('food model', () => {
-  beforeEach(() => {
-    cleanup();
+  beforeEach(async function() {
+    await cleanup();
   })
 
   test('it has attributes', () => {

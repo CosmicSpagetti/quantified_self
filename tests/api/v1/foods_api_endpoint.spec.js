@@ -7,8 +7,8 @@ var app = require('../../../app');
 var cleanup = require('../../../tests/helpers/test_clear_database');
 
 describe('foods api endpoint', () => {
-  beforeEach(() => {
-    cleanup();
+  beforeEach(async function() {
+    await cleanup();
   })
 
   test('user can fetch all foods', () => {
@@ -112,6 +112,7 @@ describe('foods api endpoint', () => {
         calories: 10
       })
       .then(response => {
+        console.log(response.body)
         expect(response.status).toBe(202);
 
         expect(Object.keys(response.body)).toContain('id');

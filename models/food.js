@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     calories: DataTypes.INTEGER
   }, {
     hooks: {
-      beforeCreate: (food) => {
+      beforeSave: (food) => {
         food.name = toTitleCase(food.name);
       }
     }
