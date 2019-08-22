@@ -6,16 +6,16 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   }, {
     hooks: {
-      beforeCreate: (food) => {
+      beforeSave: (food) => {
         food.name = toTitleCase(food.name);
       }
     }
   });
   Meal.associate = function(models) {
     Meal.belongsToMany(models.Food, {
-      through: 'MealFoods', 
+      through: 'MealFoods',
       foreignKey: 'MealId',
-      otherKey: 'FoodId', 
+      otherKey: 'FoodId',
       as: 'foods',
     })
   };

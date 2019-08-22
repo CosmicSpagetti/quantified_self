@@ -112,6 +112,7 @@ describe('foods api endpoint', () => {
         calories: 10
       })
       .then(response => {
+        console.log(response.body)
         expect(response.status).toBe(202);
 
         expect(Object.keys(response.body)).toContain('id');
