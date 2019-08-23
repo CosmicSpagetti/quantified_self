@@ -78,7 +78,7 @@ describe('meals api endpoint', () => {
     })
   })
 
-  test('user can delete food within a meal', () => {
+  test('user can delete food associated with a meal', () => {
     return Meal.create({
       name: 'snack',
       foods: [
@@ -88,11 +88,11 @@ describe('meals api endpoint', () => {
           calories: 800
         },
         {
-          name: 'Blue-sharks',
+          name: 'Blue-Sharks',
           calories: 30
         },
         {
-          name: 'Capri-sun',
+          name: 'Capri-Sun',
           calories: 300
         }
       ]
@@ -101,14 +101,14 @@ describe('meals api endpoint', () => {
     })
     .then(meal => {
       return request(app)
-        .delete(`/api/v1/meals/${meal.id}/foods/101`)
-        .then(response => { 
-          expect(response.statusCode).toBe(204)
-        }) 
+      .delete(`/api/v1/meals/${meal.id}/foods/101`)
+      .then(response => { 
+        expect(response.statusCode).toBe(204);
+      }) 
     })
   })
 
-  test('user receives a 404 error when the food in not associated with the meal', () => {
+  test('user receives a 404 error when the food is not associated with the meal', () => {
     return Food.create({
       name: 'Mayo',
       calories: 200
