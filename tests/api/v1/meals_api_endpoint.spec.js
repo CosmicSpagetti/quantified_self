@@ -78,6 +78,51 @@ describe('meals api endpoint', () => {
     })
   })
 
+  test('user can fetch all foods associated with a meal', () => {
+    return Meal.create({
+      name: 'Brunch',
+      foods: [
+        {
+          name: 'Beignets',
+          calories: 900
+        },
+        {
+          name: 'Fried Chicken Sandwich',
+          calories: 1100
+        },
+        {
+          name: 'Pork Belly',
+          calories: 1600
+        }
+      ],
+    }, {
+      include: 'foods'
+    })
+    .then(meal => {
+      return request(app)
+      .get(`/api/v1/meals/${meal.id}/foods`)
+      .then(response => {
+        expect(response.statusCode).toBe(200);
+
+        expect(Object.keys(response.body)).toContain('id')
+        expect(Object.keys(response.body)).toContain('name')
+
+        expect(Object.keys(response.body.foods[0])).toContain('id')
+        expect(Object.keys(response.body.foods[0])).toContain('name')
+        expect(Object.keys(response.body.foods[0])).toContain('calories')
+      })
+    })
+  })
+
+  test('user receives a 404 error when no meal is found to fetch foods for', () => {
+    return request(app)
+    .get('/api/v1/meals/9999/foods')
+    .then(response => {
+      expect(response.status).toBe(404);
+      expect(response.body.error).toBe('Meal not found.');
+    })
+  })
+
   test('user can delete food associated with a meal', () => {
     return Meal.create({
       name: 'snack',
@@ -102,9 +147,9 @@ describe('meals api endpoint', () => {
     .then(meal => {
       return request(app)
       .delete(`/api/v1/meals/${meal.id}/foods/101`)
-      .then(response => { 
+      .then(response => {
         expect(response.statusCode).toBe(204);
-      }) 
+      })
     })
   })
 
@@ -118,7 +163,7 @@ describe('meals api endpoint', () => {
       .delete(`/api/v1/meals/9999/foods/${food.id}`)
       .then(response => {
         expect(response.status).toBe(404);
-        expect(response.body.error).toBe('Not Found.');
+        expect(response.body.error).toBe('Not found.');
       })
     })
   })
@@ -132,7 +177,7 @@ describe('meals api endpoint', () => {
       .delete(`/api/v1/meals/${meal.id}/foods/9999`)
       .then(response => {
         expect(response.status).toBe(404);
-        expect(response.body.error).toBe('Not Found.');
+        expect(response.body.error).toBe('Not found.');
       })
     })
   })
