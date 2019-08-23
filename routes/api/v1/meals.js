@@ -29,19 +29,20 @@ router.delete('/:id/foods/:food_id', (request, response) => {
   .then(mealFood => {
     if (mealFood) {
       return mealFood.destroy()
-      .then(destroyMealFood => {
+      .then(destroyedMealFood => {
         response.setHeader('Content-Type', 'application/json');
-        response.status(204).send(JSON.stringify(destroyMealFood))
+        response.status(204).send(JSON.stringify(destroyedMealFood));
       })
     } else {
-      response.setHeader('Content-Type', 'application/json')
-      response.status(404).send( { error: 'Not Found.'} )
+      response.setHeader('Content-Type', 'application/json');
+      response.status(404).send({ error: 'Not Found.' });
     }
   })
   .catch(error => {
     console.log(error)
-    response.setHeader('Content-Type', 'application/json')
-    response.status(500).send({ error })
+    response.setHeader('Content-Type', 'application/json');
+    response.status(500).send({ error });
   })
-} )
+})
+
 module.exports = router;
