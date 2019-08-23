@@ -185,7 +185,7 @@ describe('foods api endpoint', () => {
     })
   })
 
-  test('user recieves a 404 error when no food is found to delete', () => {
+  test('user receives a 404 error when no food is found to delete', () => {
     return request(app)
     .delete('/api/v1/foods/9999')
     .then(response => {
