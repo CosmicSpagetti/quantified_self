@@ -8,13 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      FoodId: {
+      foodId: {
         type: Sequelize.INTEGER,
-        allowNull: false 
+        allowNull: false
       },
-      MealId: {
+      mealId: {
         type: Sequelize.INTEGER,
-        allowNull: false 
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

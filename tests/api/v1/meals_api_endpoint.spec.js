@@ -77,4 +77,63 @@ describe('meals api endpoint', () => {
       })
     })
   })
+
+  test('user can delete food associated with a meal', () => {
+    return Meal.create({
+      name: 'snack',
+      foods: [
+        {
+          id: 101,
+          name: 'Gummies',
+          calories: 800
+        },
+        {
+          name: 'Blue-Sharks',
+          calories: 30
+        },
+        {
+          name: 'Capri-Sun',
+          calories: 300
+        }
+      ]
+    }, {
+        include: 'foods'
+    })
+    .then(meal => {
+      return request(app)
+      .delete(`/api/v1/meals/${meal.id}/foods/101`)
+      .then(response => { 
+        expect(response.statusCode).toBe(204);
+      }) 
+    })
+  })
+
+  test('user receives a 404 error when the food is not associated with the meal', () => {
+    return Food.create({
+      name: 'Mayo',
+      calories: 200
+    })
+    .then(food => {
+      return request(app)
+      .delete(`/api/v1/meals/9999/foods/${food.id}`)
+      .then(response => {
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('Not Found.');
+      })
+    })
+  })
+
+  test('user receives a 404 error when no food is found to delete', () => {
+    return Meal.create({
+      name: 'Midnight Snack'
+    })
+    .then(meal => {
+      return request(app)
+      .delete(`/api/v1/meals/${meal.id}/foods/9999`)
+      .then(response => {
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('Not Found.');
+      })
+    })
+  })
 })
