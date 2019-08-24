@@ -60,7 +60,7 @@ router.post('/:id/foods/:food_id', (request, response) => {
           return meal.addFood(food)
           .then(() => {
             response.setHeader('Content-Type', 'application/json');
-            response.status(201).send(JSON.stringify({ 'message': `Successfully added ${food.name} to ${meal.name}`})); 
+            response.status(201).send(JSON.stringify({ message: `Successfully added ${food.name} to ${meal.name}`})); 
           })
         } else {
           response.setHeader('Content-Type', 'application/json');
