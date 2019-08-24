@@ -31,9 +31,11 @@ Example of expected output:
 
 ### GET /api/v1/foods/:id
 
-Returns the food stored in the database matching the specified ID. If no food is found, returns a 404 error.
+Returns the food stored in the database matching the specified ID.
 
-Example of expected output:
+**Returns a 404 error if the food is not found.**
+
+Example of successful output:
 ```
 {
     "id": 1,
@@ -44,7 +46,9 @@ Example of expected output:
 
 ### POST /api/v1/foods
 
-Creates a new food in the database.
+Creates a new food in the database. Name and calories are required as form input.
+
+**Returns a 400 error if required information is not supplied.**
 
 Request:
 ```
@@ -55,7 +59,7 @@ body:
 }
 ```
 
-Example of expected output:
+Example of successful output:
 ```
 {
     "id": 1,
@@ -66,7 +70,9 @@ Example of expected output:
 
 ### PATCH /api/v1/foods/:id
 
-Updates the food stored in the database matching the specified ID. If no food is found, returns a 404 error.
+Updates the food stored in the database matching the specified ID.
+
+**Returns a 404 error if the food is not found.**
 
 Request:
 ```
@@ -76,7 +82,7 @@ Request:
 }
 ```
 
-Example of expected output:
+Example of successful output:
 ```
 {
     "id": 20,
@@ -87,7 +93,90 @@ Example of expected output:
 
 ### DELETE /api/v1/foods/:id
 
-Deletes the food stored in the database matching the specified ID.  Returns 204 if the operation is successful. If no food is found, returns a 404 error.
+Deletes the food stored in the database matching the specified ID.  Returns 204 if the operation is successful.
+
+**Returns a 404 error if the food is not found.**
+
+### GET /api/v1/meals
+
+Returns a list of all meals with their associated foods in the database.
+
+Example of expected output:
+```
+[
+    {
+        "id": 1,
+        "name": "Breakfast",
+        "foods": [
+            {
+                "id": 1,
+                "name": "Banana",
+                "calories": 150
+            },
+            {
+                "id": 6,
+                "name": "Yogurt",
+                "calories": 550
+            },
+            {
+                "id": 12,
+                "name": "Apple",
+                "calories": 220
+            }
+        ]
+    }
+]
+```
+
+### GET /api/v1/meals/:id/foods
+
+Returns the specified meal with all associated foods.
+
+**Returns a 404 error if the meal is not found.**
+
+Example of successful output:
+```
+{
+    "id": 1,
+    "name": "Breakfast",
+    "foods": [
+        {
+            "id": 1,
+            "name": "Banana",
+            "calories": 150
+        },
+        {
+            "id": 6,
+            "name": "Yogurt",
+            "calories": 550
+        },
+        {
+            "id": 12,
+            "name": "Apple",
+            "calories": 220
+        }
+    ]
+}
+```
+
+### POST /api/v1/meals/:id/foods
+
+Creates a new association between the specified meal and food.
+
+**Returns a 404 error if the meal or food is not found.**
+
+Example of successful output:
+```
+{
+  "message": "Successfully added FOODNAME to MEALNAME!"
+}
+```
+
+### DELETE /api/v1/meals/:id/foods/:id
+
+Deletes the association between the specified meal and the specified food.  Returns 204 if the operation is successful.
+
+**Returns a 404 error if either the meal or food is not found.**
 
 ## Local Installation
 
