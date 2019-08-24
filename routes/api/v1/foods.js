@@ -74,7 +74,7 @@ router.post('/', (request, response) => {
     response.setHeader('Content-Type', 'application/json')
     response.status(201).send(JSON.stringify(food, ['id', 'name', 'calories'] ));
   })
-  .catch(error => {
+  .catch(() => {
     response.setHeader('Content-Type', 'application/json')
     response.status(400).send(JSON.stringify({ error: 'Food not created.' }));
   })

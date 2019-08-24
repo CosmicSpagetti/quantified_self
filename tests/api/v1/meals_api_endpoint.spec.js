@@ -32,7 +32,7 @@ describe('meals api endpoint', () => {
     }, {
       include: 'foods'
     })
-    .then(meal => {
+    .then(() => {
       return Meal.create({
         name: 'Linner',
         foods: [
@@ -53,7 +53,7 @@ describe('meals api endpoint', () => {
         include: 'foods'
       })
     })
-    .then(meal => {
+    .then(() => {
       return request(app)
       .get('/api/v1/meals')
       .then(response => {
@@ -122,6 +122,57 @@ describe('meals api endpoint', () => {
       expect(response.body.error).toBe('Meal not found.');
     })
   })
+  
+  test('user can add food with id to meal with id', () => {
+    return Meal.create({
+      name: 'Qdoba'
+    })
+    .then(meal => {
+      return Food.create({
+        name: 'Bowl with steak',
+        calories: 1500
+      })
+      .then(food => {
+        return request(app)
+        .post(`/api/v1/meals/${meal.id}/foods/${food.id}`)
+        .then(response => {
+          expect(response.statusCode).toBe(201)
+          expect(Object.keys(response.body)).toContain('message')
+          expect(Object.values(response.body)).toContain(`Successfully added ${food.name} to ${meal.name}`)
+        })
+      })
+    })
+  })
+
+  test('user receives a 404 error when the meal is not found', () => {
+    return Food.create({
+      name: 'ketchup',
+      calories: 100
+    })
+    .then(food => {
+      return request(app)
+      .post(`/api/v1/meals/9999/foods/${food.id}`)
+      .then(response => {
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('Meal not found.')
+      })
+    })
+  })
+
+  test('user receives a 404 error when the food is not found', () => {
+    return Food.create({
+      name: 'ketchup',
+      calories: 100
+    })
+    .then(food => {
+      return request(app)
+      .post(`/api/v1/meals/9999/foods/${food.id}`)
+      .then(response => {
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('Meal not found.')
+      })
+    })
+  })
 
   test('user can delete food associated with a meal', () => {
     return Meal.create({
@@ -142,7 +193,7 @@ describe('meals api endpoint', () => {
         }
       ]
     }, {
-        include: 'foods'
+      include: 'foods'
     })
     .then(meal => {
       return request(app)
