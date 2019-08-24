@@ -38,7 +38,7 @@ describe('foods api endpoint', () => {
         updatedAt: new Date()
       }
     ])
-    .then(foods => {
+    .then(() => {
       return request(app)
       .get('/api/v1/foods')
       .then(response => {
@@ -72,7 +72,7 @@ describe('foods api endpoint', () => {
         updatedAt: new Date()
       }
     ])
-    .then(food =>{
+    .then(() =>{
       return request(app)
       .get('/api/v1/foods/6')
       .then(response => {
@@ -112,7 +112,6 @@ describe('foods api endpoint', () => {
         calories: 10
       })
       .then(response => {
-        console.log(response.body)
         expect(response.status).toBe(202);
 
         expect(Object.keys(response.body)).toContain('id');
