@@ -19,6 +19,28 @@ router.get('/', (request, response) => {
   })
 })
 
+router.get('/:id/foods', (request, response) => {
+  return Meal.findOne({
+    where: {
+      id: request.params.id
+    },
+    include: 'foods'
+  })
+  .then(meal => {
+    if (meal) {
+      response.setHeader('Content-Type', 'application/json');
+      response.status(200).send(JSON.stringify(meal, ['id', 'name', 'foods', 'id', 'name', 'calories']));
+    } else {
+      response.setHeader('Content-Type', 'application/json');
+      response.status(404).send({ error: 'Meal not found.' });
+    }
+  })
+  .catch(error => {
+    response.setHeader('Content-Type', 'application/json');
+    response.status(500).send({ error })
+  })
+})
+
 router.delete('/:id/foods/:food_id', (request, response) => {
   return MealFood.findOne({
     where: {
@@ -35,7 +57,7 @@ router.delete('/:id/foods/:food_id', (request, response) => {
       })
     } else {
       response.setHeader('Content-Type', 'application/json');
-      response.status(404).send({ error: 'Not Found.' });
+      response.status(404).send({ error: 'Not found.' });
     }
   })
   .catch(error => {
