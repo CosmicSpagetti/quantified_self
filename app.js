@@ -12,6 +12,8 @@ var mealsRouter = require('./routes/api/v1/meals');
 var foodsSearchRouter = require('./routes/api/v1/recipes/foods_search');
 var calorieCountRouter = require('./routes/api/v1/recipes/calorie_count')
 
+var averageCalorieCount = require('./routes/api/v1/recipes/average_calorie_count')
+
 var app = express();
 
 // view engine setup
@@ -30,7 +32,7 @@ app.use('/api/v1/meals', mealsRouter);
 
 app.use('/api/v1/recipes/foods_search', foodsSearchRouter)
 app.use('/api/v1/recipes/calorie_count', calorieCountRouter);
-
+app.use('/api/v1/recipes/average_calorie_count', averageCalorieCount)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
