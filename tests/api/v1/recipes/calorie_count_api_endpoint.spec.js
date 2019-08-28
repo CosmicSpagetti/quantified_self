@@ -1,12 +1,11 @@
 var shell = require('shelljs');
 var request = require('supertest');
 
-var app = require('../../../app');
-var cleanup = require('../../helpers/test_clear_database');
+var app = require('../../../../app');
 
 
 describe('recipes api endpoint', () => {
-  test.only('user can fetch all recipes by calorie count', () => {
+  test('user can fetch all recipes by calorie count', () => {
     return request(app)
     .get('/api/v1/recipes/calorie_count?q=4231')
     .then(response => {
@@ -21,7 +20,7 @@ describe('recipes api endpoint', () => {
     })
   })
 
-  test.only('user gets 404 when searching for calorie count that does not exist', () => {
+  test('user gets 404 when searching for calorie count that does not exist', () => {
     return request(app)
     .get('/api/v1/recipes/calorie_count?q=100')
     .then(response => {

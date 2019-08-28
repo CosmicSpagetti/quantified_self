@@ -5,9 +5,6 @@ var app = require('../../../../app');
 var cleanup = require('../../../../tests/helpers/test_clear_database');
 
 describe('foods search api endpoint', () => {
-  beforeEach(async function() {
-    await cleanup();
-  })
 
   test('user can fetch all recipes by food type', () => {
     return request(app)
