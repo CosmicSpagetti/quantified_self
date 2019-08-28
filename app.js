@@ -9,7 +9,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var foodsRouter = require('./routes/api/v1/foods');
 var mealsRouter = require('./routes/api/v1/meals');
-var foodsSearchRouter = require('./routes/api/v1/foods_search');
+var foodsSearchRouter = require('./routes/api/v1/recipes/foods_search');
 
 var app = express();
 

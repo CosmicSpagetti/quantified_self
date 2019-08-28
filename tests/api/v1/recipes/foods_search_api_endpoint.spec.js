@@ -1,10 +1,10 @@
 var shell = require('shelljs');
 var request = require('supertest');
 
-var app = require('../../../app');
-var cleanup = require('../../../tests/helpers/test_clear_database');
+var app = require('../../../../app');
+var cleanup = require('../../../../tests/helpers/test_clear_database');
 
-describe('recipes api endpoint', () => {
+describe('foods search api endpoint', () => {
   beforeEach(async function() {
     await cleanup();
   })
@@ -31,7 +31,7 @@ describe('recipes api endpoint', () => {
     .get('/api/v1/recipes/foods_search?q=pork')
     .then(response => {
       expect(response.statusCode).toBe(404)
-      expect(response.body.error).toBe('No recipes found for pork.')
+      expect(response.body.error).toBe('No recipes found for food type.')
     })
   })
 })
