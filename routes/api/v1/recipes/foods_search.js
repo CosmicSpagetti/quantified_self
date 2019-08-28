@@ -11,7 +11,7 @@ router.get('/', (request, response) => {
   .then(parsedRecipeData => {
     if (parsedRecipeData.data.recipes.length == 0) {
       response.setHeader('Content-Type', 'application/json');
-      response.status(404).send(JSON.stringify({ error: `No recipes found for food type.` }));
+      response.status(404).send(JSON.stringify({ error: 'No recipes found for food type.' }));
     } else {
       response.setHeader('Content-Type', 'application/json');
       response.status(200).send(JSON.stringify(parsedRecipeData));
