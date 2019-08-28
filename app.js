@@ -10,7 +10,8 @@ var indexRouter = require('./routes/index');
 var foodsRouter = require('./routes/api/v1/foods');
 var mealsRouter = require('./routes/api/v1/meals');
 var foodsSearchRouter = require('./routes/api/v1/recipes/foods_search');
-var calorieCountRouter = require('./routes/api/v1/recipes/calorie_count')
+var calorieCountRouter = require('./routes/api/v1/recipes/calorie_count');
+var numOfIngredientsRouter = require('./routes/api/v1/recipes/num_of_ingredients');
 
 var app = express();
 
@@ -28,8 +29,9 @@ app.use('/', indexRouter);
 app.use('/api/v1/foods', foodsRouter);
 app.use('/api/v1/meals', mealsRouter);
 
-app.use('/api/v1/recipes/foods_search', foodsSearchRouter)
+app.use('/api/v1/recipes/foods_search', foodsSearchRouter);
 app.use('/api/v1/recipes/calorie_count', calorieCountRouter);
+app.use('/api/v1/recipes/num_of_ingredients', numOfIngredientsRouter);
 
 
 // catch 404 and forward to error handler
