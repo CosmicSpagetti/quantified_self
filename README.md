@@ -173,7 +173,7 @@ Example of successful output:
 }
 ```
 
-### POST /api/v1/meals/:id/foods
+### POST /api/v1/meals/:id/foods/:id
 
 Creates a new association between the specified meal and food.
 
@@ -220,7 +220,7 @@ data: {
       "preparationTime": 0,
       "calorieCount": 1652,
       "numberOfIngredients": 11
-    },
+    }
   ]
 }
 ```
@@ -340,6 +340,14 @@ $ npm install
 
 ### Setup Database
 
+The database is setup using Postgres. In order to complete the setup:
+
+* Install [Postgres](https://www.postgresql.org/download/)
+* Create a `.env` file in the main directory
+* Define `DB_USERNAME` within `.env` as your Postgres username
+* Define `DB_DATABASE` within `.env` as `quantified_self_development`
+
+Once setup is complete, run the following commands:
 ```
 $ npx db:create
 $ npx db:migrate
